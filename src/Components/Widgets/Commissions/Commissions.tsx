@@ -3,6 +3,7 @@ import styles from "./styles/Commissions.module.css";
 import { MockFetchCommissionSchema } from "./utils/CommissionsUtils"
 import { CommissionSchema } from './types/commissionSchema';
 import CommissionsForm from "./CommissionsForm";
+import CommissionsBreakdown from "./CommissionsBreakdown";
 
 const Commissions: React.FC = () => {
     const [ commissionsSchema, setCommissionsSchema ] = useState<CommissionSchema[]>([])
@@ -15,6 +16,11 @@ const Commissions: React.FC = () => {
     useEffect(() => {
         setCommissionsSchema(MockFetchCommissionSchema())
     }, [])
+
+    const onReset = () => {
+        setDisplayBreakdown(false)
+        setCommissionsSchema(MockFetchCommissionSchema())
+    }
 
     /* 
         { range: [0, 5000], commission: 0, calculatedCommissions: 0},
@@ -51,8 +57,12 @@ const Commissions: React.FC = () => {
                             setProjectedCommissions = { setProjectedCommissions }
                         />
                     }
-                    {displayBreakdown && ""
-                        /* display Breakdown here */
+                    {displayBreakdown &&
+                       <CommissionsBreakdown
+                            commissionsSchema = { commissionsSchema }
+                            projectedCommissions={ projectedCommissions }
+                            onReset = { onReset }
+                        />
                     } 
                 </div>
 
