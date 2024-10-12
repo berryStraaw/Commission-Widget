@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Commission-Widget/static/css/main.cb9a884b.css",
+    "main.js": "/Commission-Widget/static/js/main.3a19fff3.js",
+    "static/js/453.7c0ae4f9.chunk.js": "/Commission-Widget/static/js/453.7c0ae4f9.chunk.js",
+    "index.html": "/Commission-Widget/index.html",
+    "main.cb9a884b.css.map": "/Commission-Widget/static/css/main.cb9a884b.css.map",
+    "main.3a19fff3.js.map": "/Commission-Widget/static/js/main.3a19fff3.js.map",
+    "453.7c0ae4f9.chunk.js.map": "/Commission-Widget/static/js/453.7c0ae4f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cb9a884b.css",
+    "static/js/main.3a19fff3.js"
+  ]
+}
