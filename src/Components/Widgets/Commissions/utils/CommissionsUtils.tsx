@@ -8,6 +8,7 @@ type FormatedCommissionSchema = {
     value: number | undefined ;
 }
 
+//returns a number in a specified format
 const formatNumber = (number : number | undefined, showFractions: boolean = false, simplify : boolean = false ) :string|undefined => {
     if (number === undefined) return
 
@@ -61,15 +62,6 @@ const findLowestBound = (commissionsSchema: CommissionSchema[]) : number => {
     return commissionsSchema.find(band => band.range[0] !== 0)?.range[0] || 0;
 }
 const MockFetchCommissionSchema = (): CommissionSchema[] => {
-    /* return [
-        { range: [0, 5000], commission: 0 },
-        { range: [5000, 10000], commission: 0.10 },
-        { range: [10000, 15000], commission: 0.15 },
-        { range: [15000, 20000], commission: 0.20 },
-        { range: [20000, 25000], commission: 0.25 },
-        { range: [25000, 30000], commission: 0.30 },
-    ] */
-
     return [
         { range: [0, 5000], commission: 0 },
         { range: [5000, 10000], commission: 0.10 },
