@@ -4,6 +4,7 @@ import { MockFetchCommissionSchema } from "./utils/CommissionsUtils"
 import { CommissionSchema } from './types/commissionSchema';
 import CommissionsForm from "./CommissionsForm";
 import CommissionsBreakdown from "./CommissionsBreakdown";
+import { ResponsivePieGraph } from "./Graph";
 
 const Commissions: React.FC = () => {
     const [ commissionsSchema, setCommissionsSchema ] = useState<CommissionSchema[]>([])
@@ -71,6 +72,7 @@ const Commissions: React.FC = () => {
 
                 {/* graph/chart  */}
                 <div className = { styles.graph }>
+                    <ResponsivePieGraph commissionsSchema={ commissionsSchema }/>
                 </div>
             </div>
         </div>

@@ -3,8 +3,17 @@ import { CommissionSchema } from "../types/commissionSchema"
 // file/folder where all functions making requests to the backend can live
 // or other helper functions not related to a specific component
 
-const formatNumber = (number : number | undefined, showFractions: boolean = false  ) :string|undefined => {
+type FormatedCommissionSchema = {
+    id: string;
+    value: number | undefined ;
+}
+
+const formatNumber = (number : number | undefined, showFractions: boolean = false, simplify : boolean = false ) :string|undefined => {
     if (number === undefined) return
+
+    if(simplify && number > 1000){
+        return `£${number/1000}k`
+    }
 
     return new Intl.NumberFormat('en-GB', {
         style: 'currency',
@@ -15,9 +24,39 @@ const formatNumber = (number : number | undefined, showFractions: boolean = fals
 }
 
 
-const MockFetchCommissionSchema = (): CommissionSchema[] => {
+//Takes in in commission data
+//returns {id: in a form of £lowerBound - £upperBound , value: either commission %, or the calculated commission}
 
-    // another example of a commission schema for later testing
+const formatData = (commissionsSchema: CommissionSchema[]) : FormatedCommissionSchema[] => {
+
+    //checks if any of the tiers has calculatedCommissions
+    //if yes then it is a post calculations call and we should not render the % of each commission range
+    const preCalculations = !commissionsSchema.some(tier => tier.calculatedCommissions !== undefined);
+
+    return commissionsSchema
+    .slice()
+    .map((tier) => {
+        const [lowerBound, upperBound] = tier.range;
+
+        //if upperbound doesnt exist we want a lable of lowerBound+
+        // else we want lowerbound - upperBound label
+        const id = !upperBound 
+            ? `${formatNumber(lowerBound, false, true)}+`
+            : `${formatNumber(lowerBound, false, true)} to ${formatNumber(upperBound, false, true)}`;
+
+        // if preCalculations return % value for each tier
+        // else return the actual commission amount if it exists
+    
+        const value = preCalculations? tier.commission : tier.calculatedCommissions ?? undefined;
+
+        return {
+            id,
+            value 
+        };
+    });
+}
+
+const MockFetchCommissionSchema = (): CommissionSchema[] => {
     /* return [
         { range: [0, 5000], commission: 0 },
         { range: [5000, 10000], commission: 0.10 },
@@ -36,4 +75,4 @@ const MockFetchCommissionSchema = (): CommissionSchema[] => {
     ]
 }
 
-export { MockFetchCommissionSchema, formatNumber }
+export { MockFetchCommissionSchema, formatNumber, formatData}

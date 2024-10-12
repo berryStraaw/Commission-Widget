@@ -32,7 +32,7 @@ h2{
 
 .form{
     margin: 20px;
-    padding: 20px 20px 5px;
+    padding: 20px 20px 10px;
     width: 250px;
     border: 1px solid rgba(0, 0, 0, 0.20);
     border-radius: 10px;
@@ -43,4 +43,8 @@ h2{
 }
 
 .graph{
+    height: 260px;
+    width: 350px;
+    flex-grow: 1;
+    padding: 0 50px 0px 50px;
 }
