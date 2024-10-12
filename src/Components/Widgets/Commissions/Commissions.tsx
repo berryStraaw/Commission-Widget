@@ -12,9 +12,6 @@ const Commissions: React.FC = () => {
     const [ displayBreakdown, setDisplayBreakdown ]  = useState<Boolean>(false)
     const [ projectedCommissions, setProjectedCommissions] = useState<number>(0)
     
-    /* fetch commissions on widget render
-        could potentialy move it out to parent component/memoise it so we wouldnt have to make the same call on each render
-    */
     useEffect(() => {
         setCommissionsSchema(MockFetchCommissionSchema())
     }, [])
@@ -71,7 +68,6 @@ const Commissions: React.FC = () => {
                     } 
                 </div>
 
-                {/*  vertical divider for desktop size */}
                 <div className = { styles.divider }/>
 
                 <div className = { styles.graph }>

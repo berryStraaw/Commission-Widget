@@ -39,6 +39,7 @@ h2{
 }
 .divider{
     border-left: 1px solid rgba(0, 0, 0, 0.20);
+    height: 100%;
     display: none;
 }
 
@@ -48,3 +49,23 @@ h2{
     flex-grow: 1;
     padding: 0 50px 0px 50px;
 }
+
+@media (min-width: 652px) {
+    /* Styles for desktops / large tables */
+    .commissionsContainer{
+        width: 612px;
+    }
+
+    .commissionsContent{
+        flex-direction: row;
+    }
+
+    .divider{
+        display: inline;
+    }
+
+    .graph{
+        flex-grow: 1;
+        padding: 0
+    }
+  }

@@ -67,9 +67,7 @@ const CommissionsForm: React.FC<CommissionsFormProps> = ({
         return Math.round(totalCommission * 100) / 100
     }
 
-    //to be changes when adding error styling / alert
     const handleError = (value: string ) => {
-        console.log("entered value : ", value, "is not valid")
         setDisplayError(true)
     }
 
@@ -100,9 +98,10 @@ const CommissionsForm: React.FC<CommissionsFormProps> = ({
                 id="inputError"
                 variant="error"
                 place="right"
+                style={{zIndex: 1}}
                 isOpen = {displayError}
             >
-                Please enter a number bigger than the lowest commission bound
+                Please enter a number bigger <br/> than the lowest commission bound
             </Tooltip>
             <button 
                 className= { styles.button }

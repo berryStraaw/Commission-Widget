@@ -14,10 +14,12 @@ const CommissionsBreakdown: React.FC<CommissionsBreakdownProps> = ({ commissions
     //Returns a formated breakdown of each commission tier and how much was earned from it
     // in a form of £lower bound - £upper bound   £amount earned 
     const renderCommissionLines = () => {
+
         // Reverse the array and filter out items with calculatedCommissions = 0
+        // Then it returns a neatly labled breakdowns
         return commissionsSchema
             .slice() //create a copy of the array by calling slice with no arguments
-            .reverse() //reverse it so we would start with the highest bracket
+            .reverse()
             .filter(tier => tier.calculatedCommissions !== 0 && tier.calculatedCommissions !== undefined) //filter out unused brackets
             .map((tier, index) => {
                 const [lowerBound, upperBound] = tier.range;
