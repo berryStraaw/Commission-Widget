@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./styles/CommissionsForm.module.css";
 import { CommissionSchema } from './types/commissionSchema';
 import CurrencyInput, { CurrencyInputOnChangeValues } from "react-currency-input-field";
+import { Tooltip } from "react-tooltip";
+import { findLowestBound } from "./utils/CommissionsUtils";
 
 interface CommissionsFormProps {
     commissionsSchema: CommissionSchema[];
@@ -17,9 +19,10 @@ const CommissionsForm: React.FC<CommissionsFormProps> = ({
     setProjectedCommissions
 }) => {
     const [revenue, setRevenue] = useState<number>(0);
+    const [displayError, setDisplayError] = useState<boolean>(false);
 
     const handleSubmit = (revenueToCalculate : number) => {
-        if ( revenueToCalculate === 0 ) {
+        if ( revenueToCalculate < findLowestBound(commissionsSchema)) {
             handleError("0")
             return
         }
@@ -67,6 +70,7 @@ const CommissionsForm: React.FC<CommissionsFormProps> = ({
     //to be changes when adding error styling / alert
     const handleError = (value: string ) => {
         console.log("entered value : ", value, "is not valid")
+        setDisplayError(true)
     }
 
     const handleChange = (values : CurrencyInputOnChangeValues | undefined) => {
@@ -89,7 +93,17 @@ const CommissionsForm: React.FC<CommissionsFormProps> = ({
                 onValueChange={ (value: any, name: any, values: any) => handleChange(values)}
                 prefix={"£"}
                 step={1}
+                data-tooltip-id="inputError"
+                onFocus={ () => setDisplayError(false)}
             />
+            <Tooltip
+                id="inputError"
+                variant="error"
+                place="right"
+                isOpen = {displayError}
+            >
+                Please enter a number bigger than the lowest commission bound
+            </Tooltip>
             <button 
                 className= { styles.button }
                 onClick={() => handleSubmit(revenue)}

@@ -56,6 +56,10 @@ const formatData = (commissionsSchema: CommissionSchema[]) : FormatedCommissionS
     });
 }
 
+//finds the lowest number in the schema thats not a 0
+const findLowestBound = (commissionsSchema: CommissionSchema[]) : number => {
+    return commissionsSchema.find(band => band.range[0] !== 0)?.range[0] || 0;
+}
 const MockFetchCommissionSchema = (): CommissionSchema[] => {
     /* return [
         { range: [0, 5000], commission: 0 },
@@ -75,4 +79,4 @@ const MockFetchCommissionSchema = (): CommissionSchema[] => {
     ]
 }
 
-export { MockFetchCommissionSchema, formatNumber, formatData}
+export { MockFetchCommissionSchema, formatNumber, formatData, findLowestBound}
