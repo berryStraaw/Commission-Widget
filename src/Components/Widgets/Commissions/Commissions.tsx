@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import styles from "./styles/Commissions.module.css";
 import { MockFetchCommissionSchema } from "./utils/CommissionsUtils"
 import { CommissionSchema } from './types/commissionSchema';
+import CommissionsForm from "./CommissionsForm";
 
 const Commissions: React.FC = () => {
     const [ commissionsSchema, setCommissionsSchema ] = useState<CommissionSchema[]>([])
     const [ displayBreakdown, setDisplayBreakdown ]  = useState<Boolean>(false)
+    const [ projectedCommissions, setProjectedCommissions] = useState<number>(0)
     
     /* fetch commissions on widget render
         could potentialy move it out to parent component/memoise it so we wouldnt have to make the same call on each render
@@ -14,6 +16,15 @@ const Commissions: React.FC = () => {
         setCommissionsSchema(MockFetchCommissionSchema())
     }, [])
 
+    /* 
+        { range: [0, 5000], commission: 0, calculatedCommissions: 0},
+        { range: [5000, 10000], commission: 0.10 , calculatedCommissions: 500},
+        { range: [10000, 15000], commission: 0.15 , calculatedCommissions: 750},
+        { range: [15000, 20000], commission: 0.20 , calculatedCommissions: 600},
+        { range: [20000], commission: 0.25 , calculatedCommissions: 0}
+
+        
+    */
         /* £18,000, 
          they should see a total commission value of 
          £1,850, 
@@ -32,11 +43,13 @@ const Commissions: React.FC = () => {
             
             <div className = { styles.commissionsContent}>
                 <div className= { styles.form}>
-                    {/* potentialy change how we display the form by using a class = disabled?
-                        might be usefull when applying animations
-                        */}
-                    {!displayBreakdown && ""
-                        /* Display form here */
+                    {!displayBreakdown && 
+                        <CommissionsForm
+                            commissionsSchema = { commissionsSchema }
+                            updateCommissionsSchema = { setCommissionsSchema }
+                            setDisplayBreakdown = { setDisplayBreakdown }
+                            setProjectedCommissions = { setProjectedCommissions }
+                        />
                     }
                     {displayBreakdown && ""
                         /* display Breakdown here */

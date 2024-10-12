@@ -1,7 +1,19 @@
 import { CommissionSchema } from "../types/commissionSchema"
 
 // file/folder where all functions making requests to the backend can live
-// or other calculation methods not related to specific components
+// or other helper functions not related to a specific component
+
+const formatNumber = (number : number | undefined, showFractions: boolean = false  ) :string|undefined => {
+    if (number === undefined) return
+
+    return new Intl.NumberFormat('en-GB', {
+        style: 'currency',
+        currency: 'GBP',
+        minimumFractionDigits: showFractions? 2:0,
+        maximumFractionDigits: showFractions? 2:0
+        }).format(number)
+}
+
 
 const MockFetchCommissionSchema = (): CommissionSchema[] => {
 
@@ -24,4 +36,4 @@ const MockFetchCommissionSchema = (): CommissionSchema[] => {
     ]
 }
 
-export { MockFetchCommissionSchema }
+export { MockFetchCommissionSchema, formatNumber }
